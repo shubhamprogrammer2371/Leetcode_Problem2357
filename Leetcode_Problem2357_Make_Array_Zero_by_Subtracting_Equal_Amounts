@@ -1,0 +1,52 @@
+int minimumOperations(int* nums, int numsSize){
+    int min , operation = 0;
+    while(1)
+    {
+        min = 101;
+        for(int i = 0 ; i < numsSize ; i++)
+            min = (nums[i] && nums[i] < min) ? nums[i] : min;
+        for(int i = 0 ; i < numsSize ; i++)
+            nums[i] = (nums[i]) ? nums[i]-min : nums[i];
+        if(min == 101)
+            break;
+        operation++;
+    }
+    return operation;
+}
+
+
+--------------------------------------------------------------------
+
+
+int minimumOperations(int* nums, int numsSize){
+
+    int ops=0;
+    int t;
+
+    for(int i=0;i<numsSize-1;i++)
+    {
+        for(int j=i+1;j<numsSize;j++)
+        {
+            if(nums[j]<nums[i])
+            {
+                t=nums[j];
+                nums[j]=nums[i];
+                nums[i]=t;
+            }
+        }
+    }
+
+    int count=0;
+
+    for(int i=0;i<numsSize;i++)
+    {
+        if(ops<nums[i])
+        {
+            ops+=nums[i]-ops;
+            count++;
+        }
+    }
+
+    return count;
+
+}
